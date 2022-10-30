@@ -81,24 +81,6 @@ jobs:
           EMBER_DATA_FULL_COMPAT: true
         run: pnpm test:production
 
-  fastboot-tests:
-    needs: [lint]
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
-        scenario: [fastboot-with-ember-fetch]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
-        with:
-          restore-broccoli-cache: true
-          install: true
-          build-addons: true
-      - name: Fastboot Test ${{ matrix.scenario }}
-        timeout-minutes: 12
-        run: pnpm test:fastboot ${{ matrix.scenario }}
-
   browser-tests:
     needs: [lint]
     timeout-minutes: 20
@@ -132,20 +114,6 @@ jobs:
           CI: true
         run: pnpm test:production
 
-  floating-dependencies:
-    timeout-minutes: 10
-    needs: [lint, basic-tests]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
-      - name: Install dependencies w/o lockfile
-        run: pnpm install --no-lockfile
-      - name: Build V2 Addons
-        run: pnpm build-v2-addons
-      - name: Basic Tests
-        run: pnpm test
-
   lts:
     needs: [lint, basic-tests]
     strategy:
@@ -164,7 +132,7 @@ jobs:
         timeout-minutes: 10
         env:
           CI: true
-        run: pnpm test:try-one ${{ matrix.scenario }}
+        run: pnpm test:try-one ${{ matrix.scenario }} -- ember test --test-port=0
 
   releases:
     timeout-minutes: 10
@@ -193,7 +161,7 @@ jobs:
       - name: Basic tests with ${{ matrix.release }}
         env:
           CI: true
-        run: pnpm test:try-one ${{ matrix.release }}
+        run: pnpm test:try-one ${{ matrix.release }} -- ember test --test-port=0
         continue-on-error: ${{ matrix['continue-on-error'] == true }}
 
   additional-scenarios:
@@ -213,28 +181,4 @@ jobs:
       - name: Basic tests with ${{ matrix.scenario }}
         env:
           CI: true
-        run: pnpm test:try-one ${{ matrix.scenario }}
-
-  node-version-test:
-    name: Use Node.js ${{ matrix.node-version }}
-    timeout-minutes: 8
-    needs: [lint, basic-tests]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 18.x]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: '7.13.5'
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-      - name: Install dependencies w/o lockfile
-        run: pnpm install
-      - name: Build V2 Addons
-        run: pnpm build-v2-addons
-      - name: Basic Tests
-        run: pnpm test
+        run: pnpm test:try-one ${{ matrix.scenario }} -- ember test --test-port=0
