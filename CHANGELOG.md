@@ -1,6 +1,6 @@
 # Ember Data Changelog
 
-## 3.28.12 (2022-09-12)
+## 3.28.99 (2022-09-12)
 
 #### :bug: Bug Fix
 * `-ember-data`, `adapter`, `debug`, `record-data`
