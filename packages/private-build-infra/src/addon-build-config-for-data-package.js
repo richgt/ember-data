@@ -1,3 +1,5 @@
+const path = require('path');
+
 const calculateCacheKeyForTree = require('calculate-cache-key-for-tree');
 const Funnel = require('broccoli-funnel');
 const merge = require('broccoli-merge-trees');
@@ -19,9 +21,38 @@ function addonBuildConfigForDataPackage(PackageName) {
 
     init() {
       this._super.init && this._super.init.apply(this, arguments);
+      // console.log(
+      //   'init: ' +
+      //     this.name +
+      //     ' for ' +
+      //     (typeof this.parent.name === 'function' ? this.parent.name() : this.parent.name)
+      // );
       this._prodLikeWarning();
       this.debugTree = BroccoliDebug.buildDebugCallback(`ember-data:${PackageName}`);
       this.options = this.options || {};
+      Object.assign(this.options, {
+        '@embroider/macros': {
+          setOwnConfig: {},
+        },
+        'ember-cli-babel': {
+          enableTypeScriptTransform: true,
+        },
+        autoImport: {
+          exclude: [
+            '@ember/string',
+            'ember-inflector',
+            '@ember-data/store',
+            '@ember-data/adapter',
+            '@ember-data/serializer',
+            '@ember-data/model',
+            '@ember-data/json-api',
+            '@ember-data/debug',
+            '@ember-data/canary-features',
+            '@ember-data/tracking',
+            '@glimmer/tracking',
+          ],
+        },
+      });
     },
 
     _prodLikeWarning() {
@@ -58,8 +89,8 @@ function addonBuildConfigForDataPackage(PackageName) {
       if (message.code === 'CIRCULAR_DEPENDENCY') {
         return;
       } else if (message.code === 'NON_EXISTENT_EXPORT') {
-        // ignore ts-interface imports
-        if (message.message.indexOf(`/ts-interfaces/`) !== -1) {
+        // ignore type imports
+        if (message.message.indexOf(`@ember-data/types`) !== -1) {
           return;
         }
       } else if (message.code === 'UNRESOLVED_IMPORT') {
@@ -87,7 +118,11 @@ function addonBuildConfigForDataPackage(PackageName) {
 
     shouldIncludeChildAddon(addon) {
       if (addon.name.startsWith('@ember-data')) {
-        if (this.name === 'ember-data' || addon.name === '@ember-data/canary-features') {
+        if (
+          this.name === 'ember-data' ||
+          addon.name === '@ember-data/canary-features' ||
+          addon.name === '@ember-data/tracking'
+        ) {
           return true;
         }
 
@@ -109,9 +144,9 @@ function addonBuildConfigForDataPackage(PackageName) {
     buildBabelOptions() {
       let babelOptions = this.options.babel || {};
       let existingPlugins = babelOptions.plugins || [];
-      let compatVersion = this.getEmberDataConfig().compatWith || null;
+      let config = this.getEmberDataConfig();
 
-      let customPlugins = require('./stripped-build-plugins')(process.env.EMBER_ENV, this._findHost(), compatVersion);
+      let customPlugins = require('./stripped-build-plugins')(config);
       let plugins = existingPlugins.map((plugin) => {
         return Array.isArray(plugin) ? plugin : [plugin];
       });
@@ -137,6 +172,14 @@ function addonBuildConfigForDataPackage(PackageName) {
 
     included() {
       this._super.included.apply(this, arguments);
+
+      const host = this._findHost();
+      const name = this.name;
+      const options = host.options['@embroider/macros']?.setConfig?.[name];
+
+      if (options) {
+        Object.assign(this.options['@embroider/macros'].setOwnConfig, options);
+      }
 
       this._setupBabelOptions();
     },
@@ -173,6 +216,7 @@ function addonBuildConfigForDataPackage(PackageName) {
       }
       let checker = new VersionChecker(this.project);
       let emberVersion = checker.for('ember-source');
+      let analyzer = this.registry.load('js').find((plugin) => plugin.name === 'ember-auto-import-analyzer');
 
       let privateTree = rollupPrivateModule(tree, {
         packageName: PackageName,
@@ -183,6 +227,7 @@ function addonBuildConfigForDataPackage(PackageName) {
         onWarn: this._suppressUneededRollupWarnings.bind(this),
         externalDependencies: this.externalDependenciesForPrivateModule(),
         destDir: this.getOutputDirForVersion(),
+        analyzer,
       });
 
       let withoutPrivate = new Funnel(tree, {
@@ -194,6 +239,10 @@ function addonBuildConfigForDataPackage(PackageName) {
       // use the default options
       let publicTree = babel.transpileTree(this.debugTree(withoutPrivate, 'babel-public:input'));
       publicTree = this.debugTree(publicTree, 'babel-public:output');
+
+      if (analyzer) {
+        publicTree = analyzer.toTree.call(analyzer, publicTree, undefined, undefined, { treeType: 'addon' });
+      }
 
       let destDir = this.getOutputDirForVersion();
 
@@ -208,11 +257,68 @@ function addonBuildConfigForDataPackage(PackageName) {
         return this._emberDataConfig;
       }
       const app = this._findHost();
+      const isProd = /production/.test(process.env.EMBER_ENV);
 
       let options = (app.options = app.options || {});
       options.emberData = options.emberData || {};
+      options.emberData.debug = options.emberData.debug || {};
+      const debugOptions = Object.assign(
+        {
+          LOG_PAYLOADS: false,
+          LOG_OPERATIONS: false,
+          LOG_MUTATIONS: false,
+          LOG_NOTIFICATIONS: false,
+          LOG_REQUEST_STATUS: false,
+          LOG_IDENTIFIERS: false,
+          LOG_GRAPH: false,
+          LOG_INSTANCE_CACHE: false,
+        },
+        options.emberData.debug
+      );
+      options.emberData.debug = debugOptions;
+      let HAS_DEBUG_PACKAGE, HAS_META_PACKAGE;
 
-      return options.emberData;
+      try {
+        // eslint-disable-next-line node/no-missing-require
+        require.resolve('@ember-data/debug', { paths: [process.cwd(), path.join(__dirname, '../')] });
+        HAS_DEBUG_PACKAGE = true;
+      } catch {
+        HAS_DEBUG_PACKAGE = false;
+      }
+      try {
+        // eslint-disable-next-line node/no-missing-require
+        require.resolve('ember-data', { paths: [process.cwd(), path.join(__dirname, '../')] });
+        HAS_META_PACKAGE = true;
+      } catch {
+        HAS_META_PACKAGE = false;
+      }
+      options.emberData.includeDataAdapterInProduction =
+        typeof options.emberData.includeDataAdapterInProduction === 'boolean'
+          ? options.emberData.includeDataAdapterInProduction
+          : HAS_META_PACKAGE;
+
+      const includeDataAdapter = HAS_DEBUG_PACKAGE
+        ? isProd
+          ? options.emberData.includeDataAdapterInProduction
+          : true
+        : false;
+      options.emberData.includeDataAdapter = includeDataAdapter;
+
+      const DEPRECATIONS = require('./deprecations')(options.emberData.compatWith || null);
+      const FEATURES = require('./features')(isProd);
+      options.emberData.__DEPRECATIONS = DEPRECATIONS;
+      options.emberData.__FEATURES = FEATURES;
+
+      // copy configs forward
+      const ownConfig = this.options['@embroider/macros'].setOwnConfig;
+      ownConfig.compatWith = options.emberData.compatWith || null;
+      ownConfig.debug = debugOptions;
+      ownConfig.deprecations = Object.assign(DEPRECATIONS, ownConfig.deprecations || {});
+      ownConfig.features = Object.assign({}, FEATURES);
+      ownConfig.includeDataAdapter = includeDataAdapter;
+
+      this._emberDataConfig = ownConfig;
+      return ownConfig;
     },
   };
 }

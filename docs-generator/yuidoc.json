@@ -1,0 +1,31 @@
+{
+  "name": "EmberData Documentation",
+  "description": "Documentation for EmberData: a lightweight reactive data library for JavaScript applications.",
+  "url": "https://github.com/emberjs/data",
+  "options": {
+    "enabledEnvironments": [],
+    "extension": ".js,.ts",
+    "preprocessor": "./yui-docs-preprocessor.js",
+    "excludeTags": [
+      "internal",
+      "feature"
+    ],
+    "paths": [
+      "../ember-data-types",
+      "../packages/-ember-data/addon",
+      "../packages/adapter/src",
+      "../packages/model/src",
+      "../packages/serializer/src",
+      "../packages/store/src",
+      "../packages/json-api/src",
+      "../packages/graph/src",
+      "../packages/debug/addon",
+      "../packages/private-build-infra/addon",
+      "../packages/canary-features/addon",
+      "../packages/tracking/src",
+      "../packages/request/src"
+    ],
+    "exclude": "vendor",
+    "outdir": "../packages/-ember-data/dist/docs"
+  }
+}

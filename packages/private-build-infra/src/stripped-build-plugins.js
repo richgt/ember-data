@@ -1,28 +1,23 @@
 'use strict';
 
-const FilterImports = require.resolve('babel-plugin-filter-imports');
 const StripClassCallCheck = require.resolve('babel6-plugin-strip-class-callcheck');
-const TransformBlockScoping = require.resolve('@babel/plugin-transform-block-scoping');
 
 function isProduction(environment) {
   return /production/.test(environment);
 }
 
-module.exports = function (environment, app, compatVersion) {
-  const isProd = isProduction(environment);
+module.exports = function (config) {
   let plugins = [];
-  const DebugMacros = require('./debug-macros')(app, isProd, compatVersion);
+  const DebugMacros = require('./debug-macros')(config);
   let postTransformPlugins = [];
 
+  const environment = process.env.EMBER_ENV;
+  const isProd = isProduction(environment);
   if (isProd) {
     postTransformPlugins.push([StripClassCallCheck]);
-    let filteredImports = {
-      '@ember-data/store/-debug': ['assertPolymorphicType'],
-    };
-    plugins.push([FilterImports, { imports: filteredImports }]);
   }
 
-  plugins.push([TransformBlockScoping, { throwIfClosureRequired: true }], ...DebugMacros);
+  plugins.push(...DebugMacros);
 
   return { plugins, postTransformPlugins };
 };

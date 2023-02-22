@@ -1,10 +1,23 @@
 import { registerDeprecationHandler } from '@ember/debug';
+import { VERSION } from '@ember/version';
 import { DEBUG } from '@glimmer/env';
 
+import { isDevelopingApp } from '@embroider/macros';
 import QUnit from 'qunit';
+import semver from 'semver';
+
+import type { Dict } from '@ember-data/types/q/utils';
 
 import { checkMatcher } from './check-matcher';
 import isThenable from './utils/is-thenable';
+
+function gte(version: string): boolean {
+  return semver.satisfies(semver.coerce(VERSION) as unknown as string, version);
+}
+
+function lte(version: string): boolean {
+  return semver.satisfies(semver.coerce(VERSION) as unknown as string, version);
+}
 
 let HAS_REGISTERED = false;
 let DEPRECATIONS_FOR_TEST: FoundDeprecation[];
@@ -17,6 +30,7 @@ interface DeprecationConfig {
   message?: string | RegExp;
   url?: string;
   stacktrace?: string;
+  when?: Dict<string>;
 }
 interface FoundDeprecation {
   message: string;
@@ -42,6 +56,7 @@ interface AssertNoneResult {
   message: string;
 }
 
+// @ts-expect-error
 Error.stackTraceLimit = 50;
 
 /**
@@ -67,13 +82,15 @@ function verifyDeprecation(config: DeprecationConfig, label?: string): AssertSom
   });
   HANDLED_DEPRECATIONS_FOR_TEST.push(...matchedDeprecations);
 
-  let expectedCount = typeof config.count === 'number' ? config.count : 1;
-  let passed = matchedDeprecations.length === expectedCount;
+  const expectedCount: number | 'ALL' = typeof config.count === 'number' || config.count === 'ALL' ? config.count : 1;
+  //@ts-expect-error TS having trouble realizing expectedCount can be 'ALL'
+  let passed = expectedCount === 'ALL' ? true : matchedDeprecations.length === expectedCount;
 
   return {
     result: passed,
     actual: { id: config.id, count: matchedDeprecations.length },
-    expected: { id: config.id, count: expectedCount },
+    //@ts-expect-error TS having trouble realizing expectedCount can be 'ALL'
+    expected: { id: config.id, count: expectedCount === 'ALL' ? matchedDeprecations.length : expectedCount },
     message:
       label ||
       `Expected ${expectedCount} deprecation${expectedCount === 1 ? '' : 's'} for ${config.id} during test, ${
@@ -132,6 +149,7 @@ export function configureDeprecationHandler() {
     // we do not call next to avoid spamming the console
   });
 
+  // @ts-expect-error
   QUnit.assert.expectDeprecation = async function (
     cb: () => unknown,
     config: string | RegExp | DeprecationConfig,
@@ -156,23 +174,48 @@ export function configureDeprecationHandler() {
       };
     }
 
-    if (callback) {
-      DEPRECATIONS_FOR_TEST = [];
-      let result = callback();
-      if (isThenable(result)) {
-        await result;
+    let skipAssert = !isDevelopingApp();
+    if (!skipAssert && config.when) {
+      let libs = Object.keys(config.when);
+      for (let i = 0; i < libs.length; i++) {
+        let library = libs[i];
+        let version = config.when[library]!;
+
+        if (library !== 'ember') {
+          throw new Error(`when only supports setting a version for 'ember' currently.`);
+        }
+
+        if (version.indexOf('<=') === 0) {
+          if (!lte(version)) {
+            skipAssert = true;
+          }
+        } else if (version.indexOf('>=') === 0) {
+          if (!gte(version)) {
+            skipAssert = true;
+          }
+        } else {
+          throw new Error(
+            `Expected a version range set to either >= or <= for the library ${library} when the deprecation ${config.id} is present, found ${version}.`
+          );
+        }
       }
     }
 
-    let result = verifyDeprecation(config, label);
+    if (callback) {
+      DEPRECATIONS_FOR_TEST = [];
+      await callback();
+    }
 
-    if (!DEBUG) {
+    let result;
+    if (skipAssert) {
       result = {
         result: true,
         actual: { id: config.id, count: 0 },
         expected: { id: config.id, count: 0 },
         message: `Deprecations do not trigger in production environments`,
       };
+    } else {
+      result = verifyDeprecation(config, label);
     }
 
     this.pushResult(result);

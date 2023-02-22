@@ -1,66 +1,78 @@
 {
   "name": "@ember-data/serializer",
-  "version": "3.28.12",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "4.10.0-alpha.12",
+  "description": "Provides reference Serializer implementations for use with @ember-data/store",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "https://github.com/emberjs/data/tree/master/packages/serializer",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:emberjs/data.git",
+    "directory": "packages/serializer"
+  },
   "license": "MIT",
   "author": "",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
+  "directories": {},
   "scripts": {
-    "build": "ember build",
-    "start": "ember serve",
-    "test:node": "mocha"
-  },
-  "dependencies": {
-    "@ember-data/private-build-infra": "3.28.12",
-    "@ember-data/store": "3.28.12",
-    "ember-cli-babel": "^7.26.6",
-    "ember-cli-test-info": "^1.0.0",
-    "ember-cli-typescript": "^4.1.0"
-  },
-  "devDependencies": {
-    "@ember-data/unpublished-test-infra": "3.28.12",
-    "@ember/optional-features": "^2.0.0",
-    "@ember/string": "^3.0.0",
-    "@ember/test-helpers": "^2.2.5",
-    "broccoli-asset-rev": "^3.0.0",
-    "ember-auto-import": "^2.0.0",
-    "ember-cli": "~3.26.1",
-    "ember-cli-blueprint-test-helpers": "^0.19.1",
-    "ember-cli-dependency-checker": "^3.2.0",
-    "ember-cli-htmlbars": "^5.1.2",
-    "ember-cli-inject-live-reload": "^2.0.2",
-    "ember-cli-sri": "^2.1.1",
-    "ember-cli-terser": "~4.0.1",
-    "ember-disable-prototype-extensions": "^1.1.3",
-    "ember-export-application-global": "^2.0.1",
-    "ember-load-initializers": "^2.1.1",
-    "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-qunit": "^5.1.4",
-    "ember-resolver": "^8.0.0",
-    "ember-source": "~3.28.0",
-    "ember-source-channel-url": "^3.0.0",
-    "ember-try": "^1.4.0",
-    "loader.js": "^4.7.0",
-    "qunit": "^2.15.0",
-    "qunit-dom": "^1.6.0",
-    "silent-error": "^1.1.1",
-    "webpack": "^5.37.1"
-  },
-  "engines": {
-    "node": "12.* || >= 14.*"
+    "build": "rollup --config && babel ./addon --out-dir addon --plugins=../private-build-infra/src/transforms/babel-plugin-transform-ext.js",
+    "start": "rollup --config --watch",
+    "prepack": "pnpm build",
+    "prepare": "pnpm build"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "main": "addon-main.js",
+    "type": "addon",
+    "version": 1
+  },
+  "files": [
+    "addon-main.js",
+    "addon"
+  ],
+  "peerDependencies": {
+    "@ember-data/store": "workspace:4.10.0-alpha.12",
+    "@ember/string": "^3.0.0",
+    "ember-inflector": "^4.0.2"
+  },
+  "dependenciesMeta": {
+    "@ember-data/canary-features": {
+      "injected": true
+    },
+    "@ember-data/private-build-infra": {
+      "injected": true
+    }
+  },
+  "dependencies": {
+    "@ember-data/private-build-infra": "workspace:4.10.0-alpha.12",
+    "@embroider/macros": "^1.10.0",
+    "ember-cli-babel": "^7.26.11",
+    "ember-cli-test-info": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@babel/cli": "^7.20.7",
+    "@glimmer/component": "^1.1.2",
+    "ember-source": "~4.9.3",
+    "@embroider/addon-dev": "^2.0.0",
+    "rollup": "^3.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-private-methods": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.20.7",
+    "@babel/plugin-transform-typescript": "^7.20.7",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/runtime": "^7.20.7",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "tslib": "^2.4.1",
+    "walk-sync": "^3.0.0",
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": "^14.8.0 || 16.* || >= 18.*"
   },
   "volta": {
-    "node": "14.17.0",
-    "yarn": "1.22.4"
-  }
+    "extends": "../../package.json"
+  },
+  "packageManager": "pnpm@7.19.0"
 }

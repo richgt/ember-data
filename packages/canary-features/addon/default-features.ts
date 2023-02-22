@@ -27,7 +27,7 @@
  * *Using `yarn` to install the latest canary*
  *
  * ```cli
- * yarn add ember-data@canary
+ * pnpm add ember-data@canary
  * ```
  *
  * ### Activating a Canary Feature
@@ -81,13 +81,13 @@
  * *Example activating a single feature flags*
  *
  * ```js
- * EMBER_DATA_FEATURE_OVERRIDE=REQUEST_SERVICE ember build
+ * EMBER_DATA_FEATURE_OVERRIDE=SAMPLE_FEATURE_FLAG ember build
  * ```
  *
  * *Example activating multiple feature flags*
  *
  * ```js
- * EMBER_DATA_FEATURE_OVERRIDE=REQUEST_SERVICE,CUSTOM_MODEL_CLASS ember build
+ * EMBER_DATA_FEATURE_OVERRIDE=SAMPLE_FEATURE_FLAG,CUSTOM_MODEL_CLASS ember build
  * ```
  *
  * *Example activating all feature flags*
@@ -171,12 +171,4 @@
 */
 export default {
   SAMPLE_FEATURE_FLAG: null,
-  RECORD_DATA_ERRORS: true,
-  RECORD_DATA_STATE: true,
-  IDENTIFIERS: true,
-  REQUEST_SERVICE: true,
-  CUSTOM_MODEL_CLASS: true,
-  FULL_LINKS_ON_RELATIONSHIPS: true,
-  RECORD_ARRAY_MANAGER_IDENTIFIERS: true,
-  REMOVE_RECORD_ARRAY_MANAGER_LEGACY_COMPAT: true,
 };

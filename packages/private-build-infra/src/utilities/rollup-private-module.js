@@ -3,7 +3,7 @@ const Rollup = require('broccoli-rollup');
 const BroccoliDebug = require('broccoli-debug');
 
 module.exports = function rollupPrivateModule(tree, options) {
-  const { onWarn, destDir, babelCompiler, babelOptions, externalDependencies, packageName } = options;
+  const { onWarn, destDir, babelCompiler, babelOptions, externalDependencies, packageName, analyzer } = options;
   const debugTree = BroccoliDebug.buildDebugCallback(`ember-data:${packageName}:rollup-private`);
   tree = debugTree(tree, 'input');
 
@@ -30,6 +30,7 @@ module.exports = function rollupPrivateModule(tree, options) {
     disablePresetEnv: false,
     disableDebugTooling: false,
     disableDecoratorTransforms: false,
+    enableTypeScriptTransform: true,
 
     throwUnlessParallelizable: true,
 
@@ -61,6 +62,10 @@ module.exports = function rollupPrivateModule(tree, options) {
     'ember-cli-babel': emberCliBabelOptions,
   });
 
+  if (analyzer) {
+    privateTree = analyzer.toTree.call(analyzer, privateTree, undefined, undefined, { treeType: 'addon' });
+  }
+
   privateTree = debugTree(privateTree, 'babel-private:output');
   privateTree = new Rollup(privateTree, {
     rollup: {
@@ -71,8 +76,11 @@ module.exports = function rollupPrivateModule(tree, options) {
           format: options.babelCompiler.shouldCompileModules() ? 'amd' : 'esm',
           amd: { id: `${packageName}/-private` },
           exports: 'named',
+          generatedCode: 'es2015',
+          minifyInternalExports: true,
         },
       ],
+      treeshake: true,
       external: externalDependencies,
       onwarn: onWarn,
       // cache: true|false Defaults to true

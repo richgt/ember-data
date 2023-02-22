@@ -12,23 +12,33 @@ We have provided an [issue template](.github/bug.md) what will help guide you th
 If you are unsure if something is a bug, the `#ember-data` channel on [Discord](https://discord.gg/zT3asNS) is
 a great place to ask for help!
 
-#### Testing ember data source directly
+#### Testing EmberData source directly in your Application
 
-##### monolithic ember-data
-
-You can use package linking to test checkouts of ember-data. This applies to consuming ember-data directly within an ember application. It will not work in your application if you are consuming ember-data through an addon (transitive dependency problem). This approach also presumes consuming all of ember-data. You can link to divisions within ember-data as well.
+You can use package linking to test checkouts of ember-data against your application locally. This applies to consuming ember-data directly within an ember application. It will not work in your application if you are consuming ember-data through an addon (transitive dependency problem). This approach also presumes consuming all of ember-data.
 
 1. clone this repository or another fork
-1. run `yarn install`
-1. run `yarn workspace ember-data link`
-1. `cd` into your application
-1. run `yarn link "ember-data"`. If you don't use yarn in your application, `npm link "ember-data"` may work.
+2. install dependencies: `pnpm install`
+3. change into the `ember-data` package directory `cd packages/-ember-data`
 
-Then you can run `ember serve` as usual in your application. You should see something like the following printed to your terminal:
+If using `pnpm`
+
+1. run `link`. `pnpm link -g`
+2. `cd` into your application
+3. run `pnpm link ember-data`
+
+If you don't use pnpm in your application, using the appropriate `yarn link` and `npm link` commands within the respective directories for the project and your app may work.
+
+You can link to individual packages within this monorepo as well, doing so however is likely to be brittle. If you need to test individual packages against your application and linking does not work
+you may run `node ./scripts/packages-for-commit.js` to generate tarballs that can be utilized locally
+on your machine. Read pnpm/yarn/npm docs as appropriate for how to install from tarball.
+
+Once you have linked EmberData to your application, you can run `ember serve` as usual
+in your application. You should see something like the following printed to your terminal:
+
 ```
 some-app $ ember serve
 
-Missing symlinked yarn packages:
+Missing symlinked pnpm packages:
 Package: ember-data
   * Specified: ~3.15.0
   * Symlinked: 3.17.0-alpha.1
@@ -112,9 +122,8 @@ the issue being fixed and test that the solution works.
 
 - PRs will automatically run an extensive set of test scenarios for your work
 - `ember-data` is an `ember-addon` and uses `ember-cli`. To run tests locally
-  use `yarn test` or `yarn test --serve`. For additional test commands see the list
+  use `pnpm test` or `pnpm test --serve`. For additional test commands see the list
   of commands in [./package.json](./package.json)
-
 
 #### Commit Tagging
 
@@ -132,6 +141,59 @@ All commits should be tagged. Tags are denoted by square brackets (`[]`) and com
 
 In general almost all commits should fall into one of the above categories. In the cases where they don't please submit
 your PR untagged.
+
+#### Commit Labeling
+
+All commits should be labeled. Commit labeling for changelog and backporting is enforced in CI, but labels may only be
+applied by project maintainers. PRs from non-maintainers will be labeled by maintainers prior to a PR being accepted and merged.
+
+**Changelog Labels**
+
+Labels used for the changelog include `skip-changelog` which should be used if the PR should not be considered for the changelog,
+and any labels listed in the [root package.json's changelog config](https://github.com/emberjs/data/blob/master/package.json#L154).
+These labels are prefixed with `changelog:` and currently the options are:
+
+- `changelog:breaking` which should be used to signify a breaking change
+- `changelog:feat` which should be used to signify an addition of a new public feature or behavior
+- `changelog:bugfix` which should be used to signify a fix for a reported issue
+- `changelog:perf` which should be used to signify that the commit will improve performance characteristics in a meaningful way
+- `changelog:cleanup` which should be used to signify removal of deprecated features or that a deprecation has become an assertion.
+- `changelog:deprecation` which should be used to signify addition of a new deprecation
+- `changelog:doc` which should be used to signify a fix or improvement to documentation generated for api.emberjs.com
+- `changelog:test` which should be used to signify addition of new tests or refactoring of existing tests
+- `changelog:chore` which should be used to signify refactoring of internal code that should not have an affect on public APIs or behaviors but which we may want to call out for potentially unintended consequences.
+
+**Backporting Labels**
+
+We use one set of labels to indicate that a PR needs to be backported and where it needs to be backported to, and a second set of labels to indicate that a PR **is** the backport PR.
+
+To indicate that a PR should be backported, the following labels, all prefixed with `target:` are available:
+
+- `target:canary` indicates that a PR will not require backporting.
+- `target:beta` indicates the PR requires being backported to the current beta release.
+- `target:release` indicates the PR requires being backported to the current active release.
+- `target:lts` indicates that a PR requires being backported to the most current LTS release.
+- `target:lts-prev` indicates that a PR requires being backported to the second-most recent LTS release.
+
+Note: a PR should add the individual label for _every_ backport target required. We use this while releasing to search
+for any commits still requiring backport to include, and will eventually automate opening backport PRs via a bot when
+these labels are present. We remove the `target:` label from merged PRs only once the backport PR has been opened.
+
+To indicate that a PR **is** the backport PR, the following labels, all prefixed with `backport-` are available:
+
+- `backport-beta` for PRs to the beta branch
+- `backport-release` for PRs to the current active release branch
+- `backport-old-release` for PRs to previous release branches that are not LTS branches
+- `backport-lts` for PRs targetting the current active LTS branch
+- `backport-lts-prev` for PRs targetting the second most current LTS branch
+
+Note, we automatically add this label to any PR opened to a beta/release/lts branch, but for non-current non-lts backports
+it will need to be added manually.
+
+**Project Labels**
+
+Labels used for tracking work in [various projects](https://github.com/emberjs/data/projects) are not enforced, but PRs and issues
+should be labeled for any applicable projects and added to those projects when reviewed.
 
 ## Notes
 

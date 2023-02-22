@@ -15,7 +15,13 @@ module.exports = Object.assign({}, addonBaseConfig, {
       '@ember-data/canary-features',
       '@ember-data/store',
       '@ember-data/store/-private',
+      '@embroider/macros',
+      '@ember/string',
+      '@embroider/macros/es-compat',
+      '@ember-data/tracking/-private',
 
+      '@ember/object/proxy',
+      '@ember/object/promise-proxy-mixin',
       '@ember/application',
       '@ember/array',
       '@ember/array/mutable',
@@ -29,6 +35,7 @@ module.exports = Object.assign({}, addonBaseConfig, {
       '@ember/polyfills',
       '@ember/runloop',
       '@ember/utils',
+      '@ember/service',
 
       '@glimmer/tracking/primitives/cache',
       '@glimmer/tracking',

@@ -3,13 +3,22 @@
 # compiled output
 /docs/
 /packages/-ember-data/docs/
+concat-stats-for
 dist
 tmp
+packages/tracking/addon
+packages/request/addon
+packages/store/addon
+packages/adapter/addon
+packages/serializer/addon
+packages/model/addon
+packages/json-api/addon
+packages/graph/addon
 
 # dependencies
 bower_components
 node_modules
-bin/asset-size-tracking/current-data.json
+scripts/asset-size-tracking/current-data.json
 
 # misc
 .env*
@@ -19,10 +28,10 @@ bin/asset-size-tracking/current-data.json
 /onnect.lock
 coverage/*
 libpeerconnection.log
-lerna-debug.log*
 npm-debug.log*
 testem.log
 yarn-error.log
+.broccoli-cache
 
 # Ignore artifacts of publishing
 *.tgz
@@ -43,5 +52,6 @@ benchmarks/results/*.json
 
 /DEBUG
 /packages/*/DEBUG
+/tests/*/DEBUG
 
 .vscode/

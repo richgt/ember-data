@@ -115,7 +115,7 @@ export default EmberObject.extend(MutableArray, DeprecatedEvented, {
 
     /**
      * Retrieve the links for this relationship
-     * 
+     *
      @property {Object | null} links
      @public
      */
@@ -314,7 +314,7 @@ export default EmberObject.extend(MutableArray, DeprecatedEvented, {
     ```javascript
     let user = store.peekRecord('user', '1')
     await login(user);
- 
+
     let permissions = await user.permissions;
     await permissions.reload();
     ```

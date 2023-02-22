@@ -1,61 +1,376 @@
 # Ember Data Changelog
 
-## 3.28.12 (2022-09-12)
+## 4.9.1 (2022-12-03)
 
 #### :bug: Bug Fix
-* `-ember-data`, `adapter`, `debug`, `record-data`
-  * [#8182](https://github.com/emberjs/data/pull/8182) backport fixes to 3.28 lts ([@runspired](https://github.com/runspired))
+* `tracking`
+  * [#8314](https://github.com/emberjs/data/pull/8314) fix: tracking package should not declare exports while v1 ([@runspired](https://github.com/runspired))
+  * [#8308](https://github.com/emberjs/data/pull/8308) fix: prepack addon tree for embroider ([@runspired](https://github.com/runspired))
+* `store`
+  * [#8307](https://github.com/emberjs/data/pull/8307) fix: use join vs run for deleteRecord destroy of new records ([@runspired](https://github.com/runspired))
+  * [#8306](https://github.com/emberjs/data/pull/8306) fix: dont skip LiveArray remove if pending queue is not empty ([@runspired](https://github.com/runspired))
+
+#### :memo: Documentation
+* Other
+  * [#8324](https://github.com/emberjs/data/pull/8324) add @ember-data/tracking to Advanced Installation ([@luxzeitlos](https://github.com/luxzeitlos))
+  * [#8316](https://github.com/emberjs/data/pull/8316) docs: fix typo in README.md ([@SergeAstapov](https://github.com/SergeAstapov))
+* `store`
+  * [#8301](https://github.com/emberjs/data/pull/8301) assert missing crypto.randomUUID ([@luxzeitlos](https://github.com/luxzeitlos))
+
+#### Committers: 3
+- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Lukas Kohler ([@luxzeitlos](https://github.com/luxzeitlos))
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+
+## 4.9.0 (2022-12-03)
+
+* This release was an accidental publish of 4.8.4 LTS
+
+## 4.8.4 (2022-12-03)
+
+* feat: Promote 4.8 to LTS
+
+## 4.8.3 (2022-11-09)
+
+* fix: ensure correct peer-dependency versions are updated during release
+
+## 4.8.2 (2022-11-04)
+
+#### :bug: Bug Fix
+* fix: (Actually fix) publish should use pnpm pack to remove `workspace:` prefix
+
+## 4.8.1 (2022-11-04)
+
+#### :bug: Bug Fix
+* fix: publish should use pnpm pack to remove `workspace:` prefix
+
+## 4.8.0 (2022-11-04)
+
+#### :rocket: Enhancement
+
+* `model`
+  * [#8261](https://github.com/emberjs/data/pull/8261) feat: add identifier data to Reference public API ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `private-build-infra`, `store`, `tracking`, `unpublished-test-infra`
+  * [#8214](https://github.com/emberjs/data/pull/8214) feat: @ember-data/tracking primitives to prevent backtracking render errors ([@runspired](https://github.com/runspired))
+* `-ember-data`, `private-build-infra`, `record-data`, `store`
+  * [#8201](https://github.com/emberjs/data/pull/8201) feat: enhance debug logging abilities ([@runspired](https://github.com/runspired))
+
+#### :bug: Bug Fix
+* `-ember-data`, `private-build-infra`
+  * [#8198](https://github.com/emberjs/data/pull/8198) fix: thread config from host to nested deps ([@runspired](https://github.com/runspired))
+* `store`
+  * [#8264](https://github.com/emberjs/data/pull/8264) fix: fast-push should adjust end based on start ([@runspired](https://github.com/runspired))
+* `debug`
+  * [#8215](https://github.com/emberjs/data/pull/8215) fix: inspector type detection 2. attempt #8205 ([@patricklx](https://github.com/patricklx))
+  * [#8213](https://github.com/emberjs/data/pull/8213) fix: inspector type detection #8205 ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`
+  * [#8211](https://github.com/emberjs/data/pull/8211) fix: ManyReference.value should recompute when data is first received ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `store`
+  * [#8206](https://github.com/emberjs/data/pull/8206) fix: fix MandatorySetter error for Proxied PromiseProxy, silence ember-concurrency deprecations ([@runspired](https://github.com/runspired))
+* `-ember-data`, `private-build-infra`
+  * [#8198](https://github.com/emberjs/data/pull/8198) fix: thread config from host to nested deps ([@runspired](https://github.com/runspired))
 * `-ember-data`, `store`
-  * [#8154](https://github.com/emberjs/data/pull/8154) [BUGFIX] Model state error 3.28 ([@yratanov](https://github.com/yratanov))
+  * [#8189](https://github.com/emberjs/data/pull/8189) Use array notation instead of at for accessing object at values ([@jrjohnson](https://github.com/jrjohnson))
+* `-ember-data`, `store`
+  * [#8184](https://github.com/emberjs/data/pull/8184) Use array notation instead of at for accessing values ([@jrjohnson](https://github.com/jrjohnson))
+* `-ember-data`, `store`
+  * [#8171](https://github.com/emberjs/data/pull/8171) fix: filterBy should compare values ([@jrjohnson](https://github.com/jrjohnson))
+* `store`
+  * [#8172](https://github.com/emberjs/data/pull/8172) fix: correct deprecation message for toArray ([@jrjohnson](https://github.com/jrjohnson))
+
+#### Committers: 5
+- Jon Johnson ([@jrjohnson](https://github.com/jrjohnson))
+- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+- Patrick Pircher ([@patricklx](https://github.com/patricklx))
+- Rich Glazerman ([@richgt](https://github.com/richgt))
+
+
+## 4.7.3 (2022-10-02)
+
+#### :bug: Bug Fix
+* `private-build-infra`
+  * [#8200](https://github.com/emberjs/data/pull/8200) [Backport Release]: fix: thread polyfillUUID config through nested deps ([@runspired](https://github.com/runspired))
+* `-ember-data`, `store`
+  * [#8191](https://github.com/emberjs/data/pull/8191) Use array notation instead of at for accessing object at values (#8189) ([@jrjohnson](https://github.com/jrjohnson))
+  * [#8185](https://github.com/emberjs/data/pull/8185) Use array notation instead of at for accessing values (#8184) ([@jrjohnson](https://github.com/jrjohnson))
 
 #### Committers: 2
 - Chris Thoburn ([@runspired](https://github.com/runspired))
-- Yuri Ratanov ([@yratanov](https://github.com/yratanov))
+- Jon Johnson ([@jrjohnson](https://github.com/jrjohnson))
 
-## Release 3.28.11 (2022-09-12)
+## 4.7.2 (2022-09-15)
 
 #### :bug: Bug Fix
+* `store`
+  * [#8176](https://github.com/emberjs/data/pull/8176) fix: correct deprecation message for toArray ([@jrjohnson](https://github.com/jrjohnson))
 * `-ember-data`, `store`
-  * [#8181](https://github.com/emberjs/data/pull/8181) backport fix for clearing subscriptions from #8116 (Closes [#7857](https://github.com/emberjs/data/issues/7857)) ([@runspired](https://github.com/runspired))
+  * [#8178](https://github.com/emberjs/data/pull/8178) fix: filterBy should compare values ([@jrjohnson](https://github.com/jrjohnson))
 
 #### Committers: 1
-- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Jon Johnson ([@jrjohnson](https://github.com/jrjohnson))
 
+## v4.7.1 (2022-09-06)
+#### :goal_net: Test
+* `-ember-data`, `model`, `store`
+  * [#8128](https://github.com/emberjs/data/pull/8128) fix: backgroundReloads should not affect recordIsLoaded (#8125) ([@runspired](https://github.com/runspired))
+* `-ember-data`
+  * [#8160](https://github.com/emberjs/data/pull/8160) port test from #6147 ([@runspired](https://github.com/runspired))
+#### :rocket: Enhancement
+* `-ember-data`, `adapter`, `canary-features`, `model`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8122](https://github.com/emberjs/data/pull/8122) v2.1 cache ([@runspired](https://github.com/runspired))
+* `-ember-data`, `canary-features`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8114](https://github.com/emberjs/data/pull/8114) implement store portion of v2 cache ([@runspired](https://github.com/runspired))
+* `-ember-data`, `canary-features`, `model`, `record-data`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8129](https://github.com/emberjs/data/pull/8129) feat: deprecate v1 cache ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-relationship-performance-test-app`
+  * [#7955](https://github.com/emberjs/data/pull/7955) FEAT: Explicit Polymorphic Relationship Support [emberjs/rfcs#793] ([@runspired](https://github.com/runspired))
 
-## Release 3.28.10 (LTS) (May 9, 2022)
+#### :memo: Documentation
+* `-ember-data`, `adapter`, `canary-features`, `model`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8122](https://github.com/emberjs/data/pull/8122) v2.1 cache ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `canary-features`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`
+  * [#8121](https://github.com/emberjs/data/pull/8121) Documentation Upgrades ([@runspired](https://github.com/runspired))
+* Other
+  * [#8124](https://github.com/emberjs/data/pull/8124) [DOC] typo fix ([@jenweber](https://github.com/jenweber))
+* `-ember-data`, `canary-features`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8114](https://github.com/emberjs/data/pull/8114) implement store portion of v2 cache ([@runspired](https://github.com/runspired))
+* [#8138](https://github.com/emberjs/data/pull/8138) [DOC] typo in identifier initializer documentation ([@ciur](https://github.com/ciur))
 
-#### :bug: Bug Fix
-* `-ember-data`, `model`
-  * [#7947](https://github.com/emberjs/data/pull/7947) fix for #7904 computed chains not updated for async hasMany loading ([@runspired](https://github.com/runspired))
+#### :evergreen_tree: New Deprecation
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `serializer`, `store`
+  * [#8093](https://github.com/emberjs/data/pull/8093) deprecation: implement helper deprecations ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `private-build-infra`
+  * [#8092](https://github.com/emberjs/data/pull/8092) deprecation: Model.reopen/reopenClass and eager static fields lookups ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8084](https://github.com/emberjs/data/pull/8084) Love of Mine ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `canary-features`, `model`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8122](https://github.com/emberjs/data/pull/8122) v2.1 cache ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `private-build-infra`, `record-data`, `unpublished-adapter-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8115](https://github.com/emberjs/data/pull/8115) deprecation: implement strict relationships ([@runspired](https://github.com/runspired))
+* `-ember-data`, `canary-features`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8114](https://github.com/emberjs/data/pull/8114) implement store portion of v2 cache ([@runspired](https://github.com/runspired))
+* `-ember-data`, `canary-features`, `model`, `record-data`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8129](https://github.com/emberjs/data/pull/8129) feat: deprecate v1 cache ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8134](https://github.com/emberjs/data/pull/8134) feat: deprecate proxies (implements emberjs/rfcs#846) ([@runspired](https://github.com/runspired))
+
+#### :house: Internal
+* `-ember-data`
+  * [#7634](https://github.com/emberjs/data/pull/7634) [CHORE]: Modernized store-adapter-test ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7607](https://github.com/emberjs/data/pull/7607) test: defined post model individually per test ([@runnerboy22](https://github.com/runnerboy22))
+* `-ember-data`, `adapter`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8084](https://github.com/emberjs/data/pull/8084) Love of Mine ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `private-build-infra`, `record-data`, `store`
+  * [#8120](https://github.com/emberjs/data/pull/8120) Typescript & encapsulation improvements in advance of cache v2 ([@runspired](https://github.com/runspired))
 * `-ember-data`, `model`, `record-data`, `store`
-  * [#7805](https://github.com/emberjs/data/pull/7805) Backport Train for LTS ([@runspired](https://github.com/runspired))
+  * [#8117](https://github.com/emberjs/data/pull/8117) fix: move defaultValue into RecordData to better encapsulate and prevent eager instantiations ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `record-data`
+  * [#8130](https://github.com/emberjs/data/pull/8130) chore: relationship cleanup ([@runspired](https://github.com/runspired))
+* [#8151](https://github.com/emberjs/data/pull/8151) chore: add release perf check ([@runspired](https://github.com/runspired))
+* `model`, `record-data`, `store`
+  * [#8161](https://github.com/emberjs/data/pull/8161) chore: restructure graph home ([@runspired](https://github.com/runspired))
+
+#### :bug: Bug Fix
+* `-ember-data`, `adapter`, `canary-features`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`
+  * [#8089](https://github.com/emberjs/data/pull/8089) fix: unpin yarn for consumers ([@runspired](https://github.com/runspired))
+* `private-build-infra`
+  * [#8108](https://github.com/emberjs/data/pull/8108) fix earlier versions of node-14 ([@runspired](https://github.com/runspired))
+* `model`
+  * [#8118](https://github.com/emberjs/data/pull/8118) fix: reopen deprecation should properly pass original arguments ([@law-rence](https://github.com/law-rence))
+* `-ember-data`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`
+  * [#8113](https://github.com/emberjs/data/pull/8113) fix: account for multi-options-per-identifer possibility ([@runspired](https://github.com/runspired))
+* `private-build-infra`, `store`
+  * [#8109](https://github.com/emberjs/data/pull/8109) fix: add optional polyfill for crypto.randomUUID ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `store`
+  * [#8116](https://github.com/emberjs/data/pull/8116) Clear subscriptions once unsubscribed, don't unnecessarily churn on subscriptions ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `store`
+  * [#8128](https://github.com/emberjs/data/pull/8128) fix: backgroundReloads should not affect recordIsLoaded (#8125) ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-relationship-performance-test-app`
+  * [#7955](https://github.com/emberjs/data/pull/7955) FEAT: Explicit Polymorphic Relationship Support [emberjs/rfcs#793] ([@runspired](https://github.com/runspired))
+* `store`
+  * [#8159](https://github.com/emberjs/data/pull/8159) fix: uuid polyfill logic ([@runspired](https://github.com/runspired))
+
+#### Committers: 1
+- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Tyler ([@runnerboy22](https://github.com/runnerboy22))
+- Jen Weber ([@jenweber](https://github.com/jenweber))
+- [@law-rence](https://github.com/law-rence)
+- Eugen Ciur ([@ciur](https://github.com/ciur))
+
+## v4.6.1 (2022-07-28)
+
+#### :bug: Bug Fix
+* `-ember-data`, `adapter`, `canary-features`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`
+  * [#8089](https://github.com/emberjs/data/pull/8089) fix: unpin yarn for consumers ([@runspired](https://github.com/runspired))
 
 #### Committers: 1
 - Chris Thoburn ([@runspired](https://github.com/runspired))
 
-## Release 3.28.9 (LTS) (Jan 1, 2022)
-- Release
+## v4.6.0 (2022-07-27)
 
-## Release 3.28.8 (LTS) (Feb 2, 2022)
-* [#7856](https://github.com/emberjs/data/pull/7856) [bug]: Fix: assign unknown properties in init after initialization is finished to ensure proper setup timing
+4.6.0 is a re-release of 4.5.0. No new changes are involved.
+## v4.5.0 (2022-07-27)
 
-## Release 3.28.7 (LTS) (Jan 1, 2022)
+#### :rocket: Enhancement
+* `-ember-data`, `private-build-infra`, `store`
+  * [#7880](https://github.com/emberjs/data/pull/7880) [rfc]: deprecate RSVP.Promise ([@snewcomer](https://github.com/snewcomer))
+
+
+#### :evergreen_tree: New Deprecation
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-model-encapsulation-test-app`
+  * [#8055](https://github.com/emberjs/data/pull/8055) chore: Continuing InternalModel Burndown ([@runspired](https://github.com/runspired))
 
 #### :bug: Bug Fix
-* [#7810](https://github.com/emberjs/data/pull/7810) [bug]: Port add test + fix for chained async has many
+* `-ember-data`, `adapter`
+  * [#8083](https://github.com/emberjs/data/pull/8083) [BUGFIX] Serialize null array items as empty strings ([@camerondubas](https://github.com/camerondubas))
+* `-ember-data`, `store`
+  * [#7901](https://github.com/emberjs/data/pull/7901) fix: waiter should be always on ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `canary-features`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8042](https://github.com/emberjs/data/pull/8042) fix: RecordState cleanup, drop requireESM and node12 ([@runspired](https://github.com/runspired))
+* `-ember-data`, `debug`
+  * [#8008](https://github.com/emberjs/data/pull/8008) schedule watchTypeIfUnseen to prevent loop ([@patricklx](https://github.com/patricklx))
+* `adapter`, `model`, `private-build-infra`, `serializer`
+  * [#8013](https://github.com/emberjs/data/pull/8013) [BUGFIX release] Fix generated import paths for test setup functions in addons ([@bertdeblock](https://github.com/bertdeblock))
+* `-ember-data`, `model`, `store`
+  * [#8025](https://github.com/emberjs/data/pull/8025) Fix: PromiseProxy Deprecation for Save ([@runspired](https://github.com/runspired))
+* `-ember-data`
+  * [#7902](https://github.com/emberjs/data/pull/7902) test for async hasMany does not trigger relationship fetch ([@snewcomer](https://github.com/snewcomer))
+* `serializer`
+  * [#7854](https://github.com/emberjs/data/pull/7854) fix: pass correct args to keyFor<Attribute|Relationship> when normalizing ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`
+  * [#7945](https://github.com/emberjs/data/pull/7945) fix for #7904 computed chains not updated for async hasMany loading ([@runspired](https://github.com/runspired))
 
-## Release 3.28.6 (LTS) (Dec 14, 2021)
+#### :memo: Documentation
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-model-encapsulation-test-app`
+  * [#8055](https://github.com/emberjs/data/pull/8055) chore: Continuing InternalModel Burndown ([@runspired](https://github.com/runspired))
+* `model`
+  * [#8002](https://github.com/emberjs/data/pull/8002) Update imports in doc code samples ([@CuriousCorrelation](https://github.com/CuriousCorrelation))
+* [#7984](https://github.com/emberjs/data/pull/7984) Add `LICENSE.md` ([@ddzz](https://github.com/ddzz))
 
-#### :bug: Bug Fix
-* [#7702](https://github.com/emberjs/data/pull/7702) [bug]: findRecord should not cache if includes differ
+#### :shower: Deprecation Removal
+* `-ember-data`, `adapter`, `debug`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-test-infra`
+  * [#8078](https://github.com/emberjs/data/pull/8078) chore: InternalModel burndown ([@runspired](https://github.com/runspired))
+* `-ember-data`, `model`, `record-data`, `store`, `unpublished-test-infra`
+  * [#7971](https://github.com/emberjs/data/pull/7971) chore: remove the state machine ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `debug`, `model`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#7970](https://github.com/emberjs/data/pull/7970) chore: remove unused evented infra ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `model`, `store`
+  * [#7953](https://github.com/emberjs/data/pull/7953) chore: cleanup a few more leaf types ([@runspired](https://github.com/runspired))
+* `-ember-data`
+  * [#7623](https://github.com/emberjs/data/pull/7623) [CHORE]: Modernize Find-Test ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7952](https://github.com/emberjs/data/pull/7952) chore: migrate files that only re-export to ts to preserve type flow ([@runspired](https://github.com/runspired))
+  * [#7951](https://github.com/emberjs/data/pull/7951) chore: remove unneeded version code in ember-data package ([@runspired](https://github.com/runspired))
+  * [#7629](https://github.com/emberjs/data/pull/7629) [CHORE]: Modernize queries-test ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7624](https://github.com/emberjs/data/pull/7624) [CHORE]: Modernize find-all-test ([@runnerboy22](https://github.com/runnerboy22))
+* `-ember-data`, `adapter`, `model`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#7950](https://github.com/emberjs/data/pull/7950) some small cleanups and fix test container ([@runspired](https://github.com/runspired))
+* `-ember-data`, `store`
+  * [#7849](https://github.com/emberjs/data/pull/7849) Remove some usage of runtime require ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :goal_net: Test
+* `-ember-data`, `adapter`, `canary-features`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-eslint-rules`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8027](https://github.com/emberjs/data/pull/8027) fix test runs, update lts support tests ([@runspired](https://github.com/runspired))
+* `-ember-data`
+  * [#7628](https://github.com/emberjs/data/pull/7628) [CHORE]: Modernize json-api-adapter-test ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7626](https://github.com/emberjs/data/pull/7626) [CHORE]: Modernize build-url-mixin-strict-equal ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7630](https://github.com/emberjs/data/pull/7630) [CHORE]: Modernize record-persistence-test ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7625](https://github.com/emberjs/data/pull/7625) [CHORE]: Modernize client-side-delete-test ([@runnerboy22](https://github.com/runnerboy22))
+
+#### :house: Internal
+* `-ember-data`, `adapter`, `debug`, `model`, `private-build-infra`, `record-data`, `store`, `unpublished-test-infra`
+  * [#8078](https://github.com/emberjs/data/pull/8078) chore: InternalModel burndown ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-model-encapsulation-test-app`
+  * [#8055](https://github.com/emberjs/data/pull/8055) chore: Continuing InternalModel Burndown ([@runspired](https://github.com/runspired))
+* Other
+  * [#8073](https://github.com/emberjs/data/pull/8073) [DOC] update pull request template ([@jenweber](https://github.com/jenweber))
+* Other
+  * [#7982](https://github.com/emberjs/data/pull/7982) Add GitHub Actions to Dependabot and update actions ([@ddzz](https://github.com/ddzz))
+  * [#8026](https://github.com/emberjs/data/pull/8026) Deactivate Perf Benchmarks until Fixed ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `canary-features`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-eslint-rules`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-relationship-performance-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#8027](https://github.com/emberjs/data/pull/8027) fix test runs, update lts support tests ([@runspired](https://github.com/runspired))
+* `-ember-data`, `adapter`, `model`, `private-build-infra`, `record-data`, `store`
+  * [#7954](https://github.com/emberjs/data/pull/7954) port more types work over from #7585 ([@runspired](https://github.com/runspired))
+* `-ember-data`
+  * [#7622](https://github.com/emberjs/data/pull/7622) [CHORE]: Modernize Handle-Response-Test ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7631](https://github.com/emberjs/data/pull/7631) [CHORE]: Modernized serialize-test ([@runnerboy22](https://github.com/runnerboy22))
+  * [#7624](https://github.com/emberjs/data/pull/7624) [CHORE]: Modernize find-all-test ([@runnerboy22](https://github.com/runnerboy22))
+
+#### Committers: 10
+- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+- Tyler ([@runnerboy22](https://github.com/runnerboy22))
+- Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
+- Darius Dzien ([@ddzz](https://github.com/ddzz))
+- [@CuriousCorrelation](https://github.com/CuriousCorrelation)
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- [@patricklx](https://github.com/patricklx)
+- Cameron Dubas ([@camerondubas](https://github.com/camerondubas))
+- Jen Weber ([@jenweber](https://github.com/jenweber))
+
+## v4.1.0 (2021-12-30)
+
+#### :house: Internal
+* [#7831](https://github.com/emberjs/data/pull/7831) Regen yarn lockfile ([@snewcomer](https://github.com/snewcomer))
+* [#7830](https://github.com/emberjs/data/pull/7830) CHANGELOG 4.1.0 ([@snewcomer](https://github.com/snewcomer))
 
 #### Committers: 1
 - Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
 
-## Release 3.28.5 (LTS) (Nov 23, 2021)
-* No changes from `3.28.4`
 
-## Release 3.28.4 (Nov 23, 2021)
+## v4.0.2 (2021-12-15)
+
+#### :bug: Bug Fix
+* `-ember-data`, `model`, `record-data`, `store`
+  * [#7804](https://github.com/emberjs/data/pull/7804) Backport Train for Release ([@runspired](https://github.com/runspired))
+* Other
+  * [#7794](https://github.com/emberjs/data/pull/7794) [bug]: findRecord should not cache if includes differ (#7702) ([@snewcomer](https://github.com/snewcomer))
+
+#### Committers: 2
+- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
+
+
+## v4.0.0 (2021-12-11)
+
+#### :shower: Deprecation Removal
+* `-ember-data`, `adapter`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#7767](https://github.com/emberjs/data/pull/7767) Remove TARGET_IE11 flag ([@snewcomer](https://github.com/snewcomer))
+* `-ember-data`
+  * [#7703](https://github.com/emberjs/data/pull/7703) fix tests ([@snewcomer](https://github.com/snewcomer))
+* Other
+  * [#7729](https://github.com/emberjs/data/pull/7729) Cache dependencies in GitHub Actions CI workflow ([@ddzz](https://github.com/ddzz))
+  * [#7737](https://github.com/emberjs/data/pull/7737) Remove IE11 asset size checks ([@snewcomer](https://github.com/snewcomer))
+* `-ember-data`, `private-build-infra`, `record-data`, `store`
+  * [#7741](https://github.com/emberjs/data/pull/7741) Remove IE11 hacks ([@snewcomer](https://github.com/snewcomer))
+* `adapter`, `store`, `unpublished-test-infra`
+  * [#7740](https://github.com/emberjs/data/pull/7740) Remove symbol util in place of built in Symbol ([@snewcomer](https://github.com/snewcomer))
+* `-ember-data`, `adapter`, `debug`, `model`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#7739](https://github.com/emberjs/data/pull/7739) Remove TARGET_IE11 flag ([@snewcomer](https://github.com/snewcomer))
+
+#### :evergreen_tree: New Deprecation
+* `-ember-data`, `adapter`, `debug`, `model`, `private-build-infra`, `record-data`, `serializer`, `store`, `unpublished-adapter-encapsulation-test-app`, `unpublished-debug-encapsulation-test-app`, `unpublished-fastboot-test-app`, `unpublished-model-encapsulation-test-app`, `unpublished-record-data-encapsulation-test-app`, `unpublished-serializer-encapsulation-test-app`, `unpublished-test-infra`
+  * [#7767](https://github.com/emberjs/data/pull/7767) Remove TARGET_IE11 flag ([@snewcomer](https://github.com/snewcomer))
+
+#### :house: Internal
+* [#7760](https://github.com/emberjs/data/pull/7760) chore: cancel older CI jobs ([@runspired](https://github.com/runspired))
+
+#### Committers: 4
+- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Darius D. ([@ddzz](https://github.com/ddzz))
+- Igor Terzic ([@igorT](https://github.com/igorT))
+- Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
+
+## v3.28.7 (2022-01-01)
+
+#### :house: Internal
+* [#7833](https://github.com/emberjs/data/pull/7833) CHANGELOG 3.28.7 ([@snewcomer](https://github.com/snewcomer))
+
+#### Committers: 1
+- Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
+
+
+## v3.28.4 (2021-11-23)
 
 #### :bug: Bug Fix
 * `-ember-data`, `private-build-infra`
@@ -64,31 +379,25 @@
 #### Committers: 1
 - Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
 
-## Release 3.28.3 (Sep 5, 2021)
+
+## v3.28.3 (2021-09-05)
 
 #### :bug: Bug Fix
-  * [#7698](https://github.com/emberjs/data/pull/7698) Upgrade @ember/string to the latest version. The prior version used deprecated import paths that error under ember-source v4.0 (#7697) ([@kategengler](https://github.com/kategengler))
+* `-ember-data`, `adapter`, `debug`, `model`, `serializer`, `store`
+  * [#7698](https://github.com/emberjs/data/pull/7698) [BACKPORT Release] @ember/string to the latest version. The prior (#7697) ([@igorT](https://github.com/igorT))
 
 #### Committers: 1
-- Katie Gengler ([@kategengler](https://github.com/kategengler))
+- Igor Terzic ([@igorT](https://github.com/igorT))
 
-## Release 3.28.2 (Sep 2, 2021)
+
+## v3.28.2 (2021-09-02)
 
 #### :bug: Bug Fix
-  * [#7694](https://github.com/emberjs/data/pull/7694) [Bugfix] ensure `shouldCompileModules` is once again respected - Embroider compat(#7680) ([@stefanpenner](https://github.com/stefanpenner))
+* `private-build-infra`
+  * [#7694](https://github.com/emberjs/data/pull/7694) [Bugfix] ensure `shouldCompileModules` is once again respected (#7680) ([@igorT](https://github.com/igorT))
 
 #### Committers: 1
-
-- Stefan Penner ([@stefanpenner](https://github.com/stefanpenner))
-
-## Release 3.28.1 (Aug 30, 2021)
-
-#### :bug: Bug Fix
-- [#7689](https://github.com/emberjs/data/pull/7689) Do not error when 'content' is used as a property on a record #7689 [@mansona](https://github.com/mansona))
-
-#### Committers: 1
-
-- Chris Manson ([@mansona](https://github.com/mansona))
+- Igor Terzic ([@igorT](https://github.com/igorT))
 
 ## Release 3.28.0 (Aug 20, 2021)
 
@@ -2334,10 +2643,10 @@ it should be pretty straight forward to update current code to the public
 Snapshot API:
 
 ```js
-post.get('id')           => postSnapshot.id
-post.get('title')        => postSnapshot.attr('title')
-post.get('author')       => postSnapshot.belongsTo('author')
-post.get('comments')     => postSnapshot.hasMany('comments')
+post.id           => postSnapshot.id
+post.title        => postSnapshot.attr('title')
+post.author       => postSnapshot.belongsTo('author')
+post.comments     => postSnapshot.hasMany('comments')
 post.constructor         => postSnapshot.type;
 post.constructor.typeKey => postSnapshot.typeKey
 ```
@@ -2414,7 +2723,7 @@ To access attributes you should now use the `attr` function.
 
 ```js
 // Ember Data 1.0.0-beta.14.1
-post.get('title');
+post.title;
 // Ember Data 1.0.0-beta.15
 postSnapshot.attr('title');
 ```
@@ -2423,7 +2732,7 @@ To access a belongsTo relationship you should use `.belongsTo()` method.
 
 ```js
 // Ember Data 1.0.0-beta.14.1
-post.get('author');
+post.author;
 // Ember Data 1.0.0-beta.15
 postSnapshot.belongsTo('author');
 ```
@@ -2432,7 +2741,7 @@ To access a hasMany relationship you should use `.hasMany()` method.
 
 ```js
 // Ember Data 1.0.0-beta.14.1
-post.get('comments');
+post.comments;
 // Ember Data 1.0.0-beta.15
 postSnapshot.hasMany('comments');
 ```
@@ -2508,13 +2817,13 @@ var post = store.push('post', {
   author: 'Tomster',
 });
 
-post.get('title'); // => 'Ember.js is fantastic'
-post.get('author'); // => 'Tomster'
+post.title; // => 'Ember.js is fantastic'
+post.author; // => 'Tomster'
 
 store.push('post', { id: 1, author: 'Tom Dale' });
 
-post.get('title'); // => 'Ember.js is fantastic'
-post.get('author'); // => 'Tom Dale'
+post.title; // => 'Ember.js is fantastic'
+post.author; // => 'Tom Dale'
 ```
 
 This also mean that properties missing in the payload will no longer be reset,
@@ -2540,7 +2849,7 @@ serializer and do the logic yourself:
 // app/serializers/person.js
 // or App.PersonSerializer if you aren't using Ember CLI
 export default DS.RESTSerializer.extend({
-  normalize: function (type, hash, prop) {
+  normalize: function(type, hash, prop) {
     hash = this._super(type, hash, prop);
     if (!hash.hasOwnProperty('firstName')) {
       hash.firstName = null;
@@ -2559,9 +2868,9 @@ Or if you want to restore the old behavior for all of your models:
 // app/serializers/application.js
 // or App.ApplicationSerializer
 export default DS.RESTSerializer.extend({
-  normalize: function (type, hash, prop) {
+  normalize: function(type, hash, prop) {
     hash = this._super(type, hash, prop);
-    type.eachAttribute(function (key) {
+    type.eachAttribute(function(key) {
       if (!hash.hasOwnProperty(key)) {
         hash[key] = null;
       }
@@ -2587,10 +2896,10 @@ underlying array you will now need to use the `.toArray()` method.
 
 ```javascript
 // Ember Data 1.0.0-beta.12
-record.get('myHasManyRelationship').get('content').map(...);
+record.myHasManyRelationship.content.map(...);
 
 // Ember Data 1.0.0-beta.14
-record.get('myHasManyRelationship').toArray().map(...);
+record.myHasManyRelationship.toArray().map(...);
 ```
 
 Additionally if you were using the `RecordArray`'s `.addRecord()` and
@@ -2625,7 +2934,7 @@ Additionally if you were using the `RecordArray`'s `.addRecord()` and
 - [Feature thrownError] tag errorThrown from jQuery onto the jqXHR like ic-ajax does.
 - Cache relationships meta in production
 - Deprecate store.update()
-- hasMany relationships are no longer `RecordArray`, but `ManyArray`. To access the underlying array use `relationship.toArray()` instead of `relationship.get('content')`.
+- hasMany relationships are no longer `RecordArray`, but `ManyArray`. To access the underlying array use `relationship.toArray()` instead of `relationship.content`.
 
 ### Ember Data 1.0.0-beta.12 (November 25, 2014)
 
@@ -2654,13 +2963,13 @@ Ember Data's build. You should upgrade to Ember 1.8 as soon as you can.
 
 ##### Observing `data` For Changes Has Been Removed
 
-Although `model.get('data')` has been private in Ember Data for a long time, we
+Although `model.data` has been private in Ember Data for a long time, we
 have noticed users may subscribe to changes on `data` for any change to the
 model's attributes. This means that the following code:
 
 ```javascript
 var Post = DS.Model.extend({
-  doSomethingWhenDataChanges: function () {
+  doSomethingWhenDataChanges: function() {
     // do the work
   }.property('data'),
 });
@@ -2673,7 +2982,7 @@ would with any `Ember.Object`:
 var Post = DS.Model.extend({
   name: DS.attr(),
   date: DS.attr(),
-  doSomethingWhenDataChanges: function () {
+  doSomethingWhenDataChanges: function() {
     // do the work
   }.property('name', 'date'),
 });

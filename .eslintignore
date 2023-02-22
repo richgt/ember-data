@@ -7,13 +7,23 @@
 **/dist-control/
 **/dist-experiment/
 **/tmp/
+/packages/tracking/addon/
+/packages/request/addon/
+/packages/store/addon/
+/packages/adapter/addon/
 /packages/-ember-data/docs/
+/packages/tracking/addon/
+/packages/serializer/addon/
+/packages/model/addon/
+/packages/json-api/addon/
+/packages/graph/addon/
 
 **/DEBUG/
 
 # dependencies
 **/bower_components/
 **/node_modules/
+.broccoli-cache
 
 # misc
 **/coverage/

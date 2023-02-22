@@ -1,5 +1,9 @@
-<!--
+## Description
 
-If this is your first PR to `ember-data`, you may want to read our [Contributor Guide](https://github.com/emberjs/data/blob/master/CONTRIBUTING.md).
+<!-- insert description here -->
 
--->
+## Notes for the release
+
+<!-- If this PR should be described in the Ember release blog post please briefly describe what should be shared. -->
+
+
